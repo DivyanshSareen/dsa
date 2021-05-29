@@ -18,14 +18,19 @@ void print(std::vector<int> v)
 int main(){
   std::vector<int> v;
   v = {2,5,3,7,12,0,9};
-  for(int i = 0; i < v.size() - 1; i++)
-    for(int j =i+1; j < v.size(); j++)
+
+  for(int i = 0; i < v.size(); i++)
+  {
+    int m_index = i;
+    for(int j = i+1; j < v.size(); j++)
     {
-      if(v[j] < v[i])
-      {
-        swap(&v[i], &v[j]);
-      }
+        if(v[i] > v[j])
+        {
+          m_index = j;
+        }
     }
-    print(v);
+    swap(v[i],v[m_index]);
+  }
+  print(v);
 return 0;
 }
