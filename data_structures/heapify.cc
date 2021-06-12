@@ -1,6 +1,14 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+void print(std::vector<int> v)
+{
+  for(int i = 0; i < v.size(); i++)
+  {
+    cout<<v[i]<<" ";
+  }
+}
+
 void swap(int& a, int& b)
 {
   int temp = a;
@@ -36,15 +44,24 @@ void make_heap(std::vector<int>& v, int n)
   }
 }
 
+int extract_max(std::vector<int>& v, int n)
+{
+  int val = v[0];
+  swap(v[0], v[n-1]);
+  make_heap(v, n-1);
+  v.pop_back();
+  return val;
+}
+
 int main()
 {
   int n;
   std::vector<int> v = {3, 9, 4, 5, 1, 2};
   n = v.size();
   make_heap(v, n);
-  for(int i = 0; i < v.size(); i++)
-  {
-    cout<<v[i]<<" ";
-  }
+  print(v);
+  cout<<endl;
+  cout<< extract_max(v, n)<<endl;
+  print(v);
   return 0;
 }
