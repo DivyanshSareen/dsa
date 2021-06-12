@@ -43,10 +43,10 @@ int main()
     cout<<v[i]<<" ";
   }
   cout<<endl;
-quick(v, 0, v.size());
-for(int i = 0; i < v.size(); i++)
-{
-  cout<<v[i]<<" ";
-}
+  quick(v, 0, v.size());
+  for(int i = 0; i < v.size(); i++)
+  {
+    cout<<v[i]<<" ";
+  }
   return 0;
 }
