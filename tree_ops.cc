@@ -6,27 +6,31 @@ struct Node
     int data;
     Node *left;
     Node *right;
-
-    Node(int val)
-    {
-        data = val;
-        left = right = NULL;
-    }
 };
+
+Node *get_node(int val)
+{
+    Node *temp = new Node();
+    temp->data = val;
+    temp->left = NULL;
+    temp->right = NULL;
+
+    return temp;
+}
 
 Node *insert(Node *root, int val)
 {
     if (root == NULL)
     {
-        root = new Node(val);
+        root = get_node(val);
     }
     else if (root->data < val)
     {
-        root = insert(root->right, val);
+        root->right = insert(root->right, val);
     }
     else
     {
-        root = insert(root->left, val);
+        root->left = insert(root->left, val);
     }
     return root;
 }
@@ -51,13 +55,41 @@ bool search(Node *root, int key)
     }
 }
 
+int get_min(Node *root)
+{
+    if (root == NULL)
+    {
+        cout << "The tree is empty biches";
+        return -1;
+    }
+    else if (root->left == NULL)
+    {
+        return root->data;
+    }
+    return get_min(root->left);
+}
+
+int get_max(Node *root)
+{
+    if (root == NULL)
+    {
+        cout << "The tree is empty";
+        return -1;
+    }
+    else if (root->right == NULL)
+    {
+        return root->data;
+    }
+    return get_max(root->right);
+}
+
 int main(void)
 {
     Node *root = NULL;
     int choice;
     do
     {
-        cout << "\nEnter operation number:\n1.Insert\n2.Search\n3.Show\n4.Exit\n";
+        cout << "\nEnter operation number:\n1.Insert\n2.Search\n3.Minimum Element\n4.Maximum Element\n5.Exit\n";
         cin >> choice;
         switch (choice)
         {
@@ -81,12 +113,14 @@ int main(void)
             }
             break;
         case 3:
+            cout << get_min(root);
             break;
         case 4:
+            cout << get_max(root);
             break;
         default:
             cout << "Enter valid choice mate";
         }
-    } while (choice != 4);
+    } while (choice != 5);
     return 0;
 }
