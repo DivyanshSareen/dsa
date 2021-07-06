@@ -83,13 +83,22 @@ int get_max(Node *root)
     return get_max(root->right);
 }
 
+int get_height(Node *root)
+{
+    if (root == NULL)
+    {
+        return -1;
+    }
+    return max(get_height(root->left), get_height(root->right)) + 1;
+}
+
 int main(void)
 {
     Node *root = NULL;
     int choice;
     do
     {
-        cout << "\nEnter operation number:\n1.Insert\n2.Search\n3.Minimum Element\n4.Maximum Element\n5.Exit\n";
+        cout << "\nEnter operation number:\n1.Insert\n2.Search\n3.Minimum Element\n4.Maximum Element\n69.Exit\n";
         cin >> choice;
         switch (choice)
         {
@@ -118,9 +127,12 @@ int main(void)
         case 4:
             cout << get_max(root);
             break;
+        case 5:
+            cout << get_height(root);
+            break;
         default:
             cout << "Enter valid choice mate";
         }
-    } while (choice != 5);
+    } while (choice != 69);
     return 0;
 }
