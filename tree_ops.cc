@@ -113,13 +113,22 @@ void bfs(Node *root)
     }
 }
 
+void dfs(Node *root)
+{
+    if (root == NULL)
+        return;
+    dfs(root->left);
+    cout << root->data;
+    dfs(root->right);
+}
+
 int main(void)
 {
     Node *root = NULL;
     int choice;
     do
     {
-        cout << "\nEnter operation number:\n1.Insert\n2.Search\n3.Minimum Element\n4.Maximum Element\n5.Height\n6.BFS69.Exit\n";
+        cout << "\nEnter operation number:\n1.Insert\n2.Search\n3.Minimum Element\n4.Maximum Element\n5.Height\n6.BFS\n7.DFS(inorder)n69.Exit\n";
         cin >> choice;
         switch (choice)
         {
@@ -153,6 +162,9 @@ int main(void)
             break;
         case 6:
             bfs(root);
+            break;
+        case 7:
+            dfs(root);
             break;
         default:
             cout << "Enter valid choice mate";
