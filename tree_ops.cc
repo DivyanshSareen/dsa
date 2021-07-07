@@ -92,13 +92,34 @@ int get_height(Node *root)
     return max(get_height(root->left), get_height(root->right)) + 1;
 }
 
+void bfs(Node *root)
+{
+    if (!root)
+    {
+        cout << "Empty tree";
+        return;
+    }
+    std::queue<Node *> q;
+    q.push(root);
+    while (!q.empty())
+    {
+        Node *curr = q.front();
+        cout << curr->data;
+        if (curr->left != NULL)
+            q.push(curr->left);
+        if (curr->right != NULL)
+            q.push(curr->right);
+        q.pop();
+    }
+}
+
 int main(void)
 {
     Node *root = NULL;
     int choice;
     do
     {
-        cout << "\nEnter operation number:\n1.Insert\n2.Search\n3.Minimum Element\n4.Maximum Element\n69.Exit\n";
+        cout << "\nEnter operation number:\n1.Insert\n2.Search\n3.Minimum Element\n4.Maximum Element\n5.Height\n6.BFS69.Exit\n";
         cin >> choice;
         switch (choice)
         {
@@ -129,6 +150,9 @@ int main(void)
             break;
         case 5:
             cout << get_height(root);
+            break;
+        case 6:
+            bfs(root);
             break;
         default:
             cout << "Enter valid choice mate";
