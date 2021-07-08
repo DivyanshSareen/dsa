@@ -122,13 +122,37 @@ void dfs(Node *root)
     dfs(root->right);
 }
 
+void preorder(Node *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    std::stack<Node *> st;
+    st.push(root);
+    while (!st.empty())
+    {
+        Node *curr = st.top();
+        cout << curr->data;
+        st.pop();
+        if (curr->right)
+        {
+            st.push(curr->right);
+        }
+        if (curr->left)
+        {
+            st.push(curr->left);
+        }
+    }
+}
+
 int main(void)
 {
     Node *root = NULL;
     int choice;
     do
     {
-        cout << "\nEnter operation number:\n1.Insert\n2.Search\n3.Minimum Element\n4.Maximum Element\n5.Height\n6.BFS\n7.DFS(inorder)n69.Exit\n";
+        cout << "\nEnter operation number:\n1.Insert\n2.Search\n3.Minimum Element\n4.Maximum Element\n5.Height\n6.BFS\n7.DFS(inorder)\n8.Preordern69.Exit\n";
         cin >> choice;
         switch (choice)
         {
@@ -165,6 +189,9 @@ int main(void)
             break;
         case 7:
             dfs(root);
+            break;
+        case 8:
+            preorder(root);
             break;
         default:
             cout << "Enter valid choice mate";
