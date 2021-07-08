@@ -146,13 +146,26 @@ void preorder(Node *root)
     }
 }
 
+bool isBST(Node *root, int min_val = INT_MIN, int max_val = INT_MAX)
+{
+    if (root == NULL)
+    {
+        return true;
+    }
+    if (root->data >= min_val && root->data < max_val && isBST(root->left, min_val, root->data) && isBST(root->right, root->data, max_val))
+    {
+        return true;
+    }
+    return false;
+}
+
 int main(void)
 {
     Node *root = NULL;
     int choice;
     do
     {
-        cout << "\nEnter operation number:\n1.Insert\n2.Search\n3.Minimum Element\n4.Maximum Element\n5.Height\n6.BFS\n7.DFS(inorder)\n8.Preordern69.Exit\n";
+        cout << "\nEnter operation number:\n1.Insert\n2.Search\n3.Minimum Element\n4.Maximum Element\n5.Height\n6.BFS\n7.DFS(inorder)\n8.Preordern\n9.Check if BST or not\n69.Exit\n";
         cin >> choice;
         switch (choice)
         {
@@ -192,6 +205,12 @@ int main(void)
             break;
         case 8:
             preorder(root);
+            break;
+        case 9:
+            if (isBST(root))
+                cout << "YES";
+            else
+                cout << "NO";
             break;
         default:
             cout << "Enter valid choice mate";
