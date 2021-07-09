@@ -205,13 +205,53 @@ Node *delete_val(Node *root, int val)
     return root;
 }
 
+Node *get_node(Node *root, int val)
+{
+    if (root == NULL || root->data == val)
+        return root;
+    if (root->data > val)
+        return get_node(root->left, val);
+    return get_node(root->right, val);
+}
+
+Node *successor(Node *root, int val)
+{
+    Node *curr = get_node(root, val);
+    cout << "found the node atleast";
+    if (curr == NULL)
+    {
+        return NULL;
+    }
+    else if (curr->right != NULL)
+    {
+        return find_min(curr->right);
+    }
+    else
+    {
+        Node *successor = NULL;
+        Node *ancestor = root;
+        while (ancestor != curr)
+        {
+            if (curr->data < ancestor->data)
+            {
+                successor = ancestor;
+                ancestor = ancestor->left;
+            }
+            else
+                ancestor = ancestor->right;
+        }
+        return successor;
+    }
+}
+
 int main(void)
 {
     Node *root = NULL;
     int choice;
+    Node *x = NULL;
     do
     {
-        cout << "\nEnter operation number:\n1.Insert\n2.Search\n3.Minimum Element\n4.Maximum Element\n5.Height\n6.BFS\n7.DFS(inorder)\n8.Preordern\n9.Check if BST or not\n10.Delete\n69.Exit\n";
+        cout << "\nEnter operation number:\n1.Insert\n2.Search\n3.Minimum Element\n4.Maximum Element\n5.Height\n6.BFS\n7.DFS(inorder)\n8.Preorder\n9.Check if BST or not\n10.Delete\n11.Inorder Succesor\n69.Exit\n";
         cin >> choice;
         switch (choice)
         {
@@ -263,6 +303,14 @@ int main(void)
             cout << "Enter value to be deleted: ";
             cin >> val;
             root = delete_val(root, val);
+            break;
+        case 11:
+            int v;
+            cout << "Enter value of ancestor: ";
+            cin >> v;
+            x = successor(root, v);
+            cout << x->data;
+            break;
         default:
             cout << "Enter valid choice mate";
         }
