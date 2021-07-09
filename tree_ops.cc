@@ -161,7 +161,9 @@ bool isBST(Node *root, int min_val = INT_MIN, int max_val = INT_MAX)
 
 Node *find_min(Node *root)
 {
-    while (root != NULL && root->left != NULL)
+    if (root == NULL)
+        return NULL;
+    while (root->left != NULL)
     {
         root = root->left;
     }
@@ -217,7 +219,6 @@ Node *get_node(Node *root, int val)
 Node *successor(Node *root, int val)
 {
     Node *curr = get_node(root, val);
-    cout << "found the node atleast";
     if (curr == NULL)
     {
         return NULL;
@@ -309,7 +310,10 @@ int main(void)
             cout << "Enter value of ancestor: ";
             cin >> v;
             x = successor(root, v);
-            cout << x->data;
+            if (x != NULL)
+                cout << x->data;
+            else
+                cout << "not found";
             break;
         default:
             cout << "Enter valid choice mate";
