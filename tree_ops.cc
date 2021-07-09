@@ -159,13 +159,59 @@ bool isBST(Node *root, int min_val = INT_MIN, int max_val = INT_MAX)
     return false;
 }
 
+Node *find_min(Node *root)
+{
+    while (root != NULL && root->left != NULL)
+    {
+        root = root->left;
+    }
+    return root;
+}
+
+Node *delete_val(Node *root, int val)
+{
+    if (root == NULL)
+        return NULL;
+    else if (root->data > val)
+        root->left = delete_val(root->left, val);
+    else if (root->data < val)
+        root->right = delete_val(root->right, val);
+    else
+    {
+        if (root->left == NULL && root->right == NULL)
+        {
+            delete root;
+            root = NULL;
+        }
+        else if (root->left == NULL)
+        {
+            Node *temp = root;
+            root = root->right;
+            delete temp;
+        }
+        else if (root->right == NULL)
+        {
+            Node *temp = root;
+            root = root->left;
+            delete temp;
+        }
+        else
+        {
+            Node *temp = find_min(root->right);
+            root->data = temp->data;
+            root->right = delete_val(root->right, temp->data);
+        }
+    }
+    return root;
+}
+
 int main(void)
 {
     Node *root = NULL;
     int choice;
     do
     {
-        cout << "\nEnter operation number:\n1.Insert\n2.Search\n3.Minimum Element\n4.Maximum Element\n5.Height\n6.BFS\n7.DFS(inorder)\n8.Preordern\n9.Check if BST or not\n69.Exit\n";
+        cout << "\nEnter operation number:\n1.Insert\n2.Search\n3.Minimum Element\n4.Maximum Element\n5.Height\n6.BFS\n7.DFS(inorder)\n8.Preordern\n9.Check if BST or not\n10.Delete\n69.Exit\n";
         cin >> choice;
         switch (choice)
         {
@@ -212,6 +258,11 @@ int main(void)
             else
                 cout << "NO";
             break;
+        case 10:
+            int val;
+            cout << "Enter value to be deleted: ";
+            cin >> val;
+            root = delete_val(root, val);
         default:
             cout << "Enter valid choice mate";
         }
