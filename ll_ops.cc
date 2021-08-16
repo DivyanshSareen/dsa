@@ -79,6 +79,44 @@ void search(Node *root, int key)
         cout << "key not found" << endl;
     }
 }
+
+Node *delete_head(Node *root)
+{
+    Node *temp = root;
+    root = root->next;
+    delete temp;
+    return root;
+}
+
+Node *delete_node(Node *root, int val)
+{
+    if (!root)
+    {
+        return root;
+    }
+    if (root->data == val)
+    {
+        return delete_head(root);
+    }
+    Node *temp = root;
+    while (temp->next != NULL && temp->next->data != val)
+    {
+        temp = temp->next;
+    }
+    if (temp->next == NULL)
+    {
+        cout << "element not found";
+        return root;
+    }
+    else
+    {
+        Node *temp1 = temp->next;
+        temp->next = temp->next->next;
+        delete temp1;
+        return root;
+    }
+}
+
 int main()
 {
     Node *root = NULL;
@@ -89,5 +127,7 @@ int main()
     root = insert_head(root, 5);
     display(root);
     search(root, 3);
+    root = delete_node(root, 6);
+    display(root);
     return 0;
 }
