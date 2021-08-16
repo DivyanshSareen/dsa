@@ -49,7 +49,7 @@ Node *insert_head(Node *root, int val)
 void display(Node *root)
 {
     Node *temp = root;
-    while (temp->next != NULL)
+    while (temp != NULL)
     {
         cout << temp->data << "->";
         temp = temp->next;
@@ -117,6 +117,47 @@ Node *delete_node(Node *root, int val)
     }
 }
 
+Node *it_rev(Node *root)
+{
+    Node *prev = NULL;
+    Node *curr = root;
+    Node *next = root->next;
+    while (next != NULL)
+    {
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+        next = next->next;
+    }
+    curr->next = prev;
+    prev = curr;
+    root = prev;
+    return root;
+}
+
+void disp_rev(Node *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    disp_rev(root->next);
+    cout << root->data;
+}
+
+Node *rev(Node *root, Node *curr)
+{
+    if (curr->next == NULL)
+    {
+        root = curr;
+        return root;
+    }
+    root = rev(root, curr->next);
+    curr->next->next = curr;
+    curr->next = NULL;
+    return root;
+}
+
 int main()
 {
     Node *root = NULL;
@@ -127,7 +168,12 @@ int main()
     root = insert_head(root, 5);
     display(root);
     search(root, 3);
-    root = delete_node(root, 6);
+    // root = delete_node(root, 6);
+    display(root);
+    root = it_rev(root);
+    display(root);
+    // disp_rev(root);
+    root = rev(root, root);
     display(root);
     return 0;
 }
