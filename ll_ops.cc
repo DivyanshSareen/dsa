@@ -121,16 +121,14 @@ Node *it_rev(Node *root)
 {
     Node *prev = NULL;
     Node *curr = root;
-    Node *next = root->next;
-    while (next != NULL)
+    Node *next;
+    while (curr != NULL)
     {
+        next = curr->next;
         curr->next = prev;
         prev = curr;
         curr = next;
-        next = next->next;
     }
-    curr->next = prev;
-    prev = curr;
     root = prev;
     return root;
 }
