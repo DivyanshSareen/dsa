@@ -3,7 +3,7 @@ using namespace std;
 
 int main()
 {
-    double arr[] = {5, 15, 10, 20, 3};
+    double arr[] = {5, 15, 1, 3};
 
     priority_queue<double> s;
     priority_queue<double, vector<double>, greater<double>> g;
@@ -12,7 +12,7 @@ int main()
     s.push(arr[0]);
 
     cout << med << endl;
-    for (int i = 0; i < 5; i++)
+    for (int i = 1; i < 5; i++)
     {
         double x = arr[i];
         if (s.size() > g.size())
