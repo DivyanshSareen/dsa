@@ -20,6 +20,28 @@ void printGraph(map<int, list<int>> g)
     }
 }
 
+void dfs(map<int, list<int>> g, int src)
+{
+    stack<int> st;
+    map<int, bool> visited;
+    st.push(src);
+    visited[src] = true;
+    while (!st.empty())
+    {
+        int temp = st.top();
+        st.pop();
+        cout << temp << " ";
+        for (auto x : g[temp])
+        {
+            if (!visited[x])
+            {
+                st.push(x);
+                visited[x] = true;
+            }
+        }
+    }
+}
+
 int main()
 {
     map<int, list<int>> g;
@@ -31,7 +53,7 @@ int main()
     addEdge(g, 2, 3);
     addEdge(g, 3, 4);
 
-    printGraph(g);
-
+    // printGraph(g);
+    dfs(g, 0);
     return 0;
 }
