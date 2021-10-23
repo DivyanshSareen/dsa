@@ -42,6 +42,28 @@ void dfs(map<int, list<int>> g, int src)
     }
 }
 
+void bfs(map<int, list<int>> g, int src)
+{
+    queue<int> q;
+    map<int, bool> visited;
+    q.push(src);
+    visited[src] = true;
+    while (!q.empty())
+    {
+        int temp = q.front();
+        q.pop();
+        cout << temp << " ";
+        for (auto x : g[temp])
+        {
+            if (!visited[x])
+            {
+                q.push(x);
+                visited[x] = true;
+            }
+        }
+    }
+}
+
 int main()
 {
     map<int, list<int>> g;
@@ -54,6 +76,7 @@ int main()
     addEdge(g, 3, 4);
 
     // printGraph(g);
-    dfs(g, 0);
+    // dfs(g, 0);
+    bfs(g, 0);
     return 0;
 }
