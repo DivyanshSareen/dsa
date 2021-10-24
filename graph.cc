@@ -4,7 +4,6 @@ using namespace std;
 void addEdge(map<int, list<int>> &g, int a, int b)
 {
     g[a].push_back(b);
-    g[b].push_back(a);
 }
 
 void printGraph(map<int, list<int>> g)
@@ -64,19 +63,58 @@ void bfs(map<int, list<int>> g, int src)
     }
 }
 
+void topsort(map<int, list<int>> g)
+{
+    stack<int> st, t;
+    map<int, bool> visited;
+
+    for (auto x : g)
+    {
+        if (!visited[x.first])
+        {
+            t.push(x.first);
+            visited[x.first] = true;
+            for (auto y : x.second)
+            {
+                if (!visited[y])
+                {
+                    t.push(y);
+                    visited[y] = true;
+                }
+            }
+            while (!t.empty())
+            {
+                st.push(t.top());
+                t.pop();
+            }
+        }
+    }
+    while (!st.empty())
+    {
+        int x = st.top();
+        cout << x << " ";
+        st.pop();
+    }
+}
+
 int main()
 {
     map<int, list<int>> g;
-    addEdge(g, 0, 1);
-    addEdge(g, 0, 4);
     addEdge(g, 1, 2);
     addEdge(g, 1, 3);
-    addEdge(g, 1, 4);
-    addEdge(g, 2, 3);
-    addEdge(g, 3, 4);
+    addEdge(g, 2, 4);
+    addEdge(g, 2, 5);
+    addEdge(g, 3, 6);
+    addEdge(g, 4, 7);
+    addEdge(g, 5, 7);
+    addEdge(g, 6, 5);
+    addEdge(g, 6, 7);
+    // addEdge(g, 3, 4);
 
-    // printGraph(g);
+    printGraph(g);
     // dfs(g, 0);
-    bfs(g, 0);
+    // bfs(g, 0);
+    topsort(g);
+
     return 0;
 }
