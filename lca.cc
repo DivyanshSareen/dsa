@@ -5,14 +5,7 @@ class Node
 {
 public:
     int data;
-    Node *left;
-    Node *right;
-    Node(int data = 0)
-    {
-        this->data = data;
-        this->left = NULL;
-        this->right = NULL;
-    }
+    Node *children[];
 };
 
 void dfs(Node *root)
@@ -26,18 +19,27 @@ void dfs(Node *root)
     dfs(root->right);
 }
 
+void eul_tour(Node *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    cout << root->data;
+    eul_tour(root->left);
+    eul_tour(root->right);
+    cout << root->data;
+}
+
 int main()
 {
     Node *root = new Node();
     root = new Node(0);
     root->left = new Node(1);
     root->right = new Node(2);
-    root->left->left = new Node(3);
-    root->right->left = new Node(4);
-    root->right->right = new Node(5);
-    root->right->left->left = new Node(6);
-
-    dfs(root);
+    root->right->left = new Node(3);
+    eul_tour(root);
+    // dfs(root);
 
     return 0;
 }
