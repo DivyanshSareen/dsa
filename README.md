@@ -15,4 +15,8 @@ Solutions to common dsa problems using C++. This repo is an archive of my dsa pr
 ### Theme(VSCode): Ariake Dark
 ![image](https://user-images.githubusercontent.com/59335572/131119297-4e959dfd-53e8-43ec-aedc-7abfa27cb714.png)
 
+### Font Family: Cascadia Code(with font ligatures)
+<img width="304" alt="image" src="https://user-images.githubusercontent.com/59335572/143238377-38988b00-bdbb-4ae9-90a9-aade8356f857.png">
+
+
 
